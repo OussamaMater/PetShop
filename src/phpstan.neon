@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - app
+        - config
+        - database
+    excludePaths:
+        - app/Providers
+        - app/Http/Middleware/RedirectIfAuthenticated.php
+    checkMissingIterableValueType: false
