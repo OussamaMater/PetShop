@@ -29,12 +29,10 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
+            $apiVersion = config('pet-shop.api_version');
             Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+                ->prefix("api/{$apiVersion}")
+                ->group(base_path("routes/{$apiVersion}/api.php"));
         });
     }
 }
