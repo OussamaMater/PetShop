@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Http\Responses\ApiResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -22,8 +25,20 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        // $this->reportable(function (Throwable $e) {
-        //
-        // });
+        $this->renderable(function (NotFoundHttpException $e) {
+            return new ApiResponse(
+                success: 0,
+                status: 404,
+                error: '404 not found'
+            );
+        });
+
+        $this->renderable(function (AccessDeniedHttpException $e) {
+            return new ApiResponse(
+                success: 0,
+                status: 403,
+                error: 'You don\'t have permission to access this resource'
+            );
+        });
     }
 }
