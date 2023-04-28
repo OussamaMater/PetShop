@@ -3,11 +3,11 @@
 namespace App\Filters;
 
 use Closure;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class Marketing
 {
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Builder $request, Closure $next): mixed
     {
         if (! request()->has('marketing')) {
             return $next($request);
